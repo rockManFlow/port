@@ -1,4 +1,4 @@
-package com.rock.port.connector;
+package com.rock.port.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;

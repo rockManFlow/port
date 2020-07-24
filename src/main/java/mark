@@ -13,5 +13,8 @@
 
 ========================
 实现的功能
-    实现了springboot的HTTPS和http的共同访问
-netty客户端和服务端的基本实现
+1、实现了springboot的HTTPS和http的共同访问
+2、netty客户端和服务端的基本实现
+3、zookeeper基本操作
+4、使用Runtime类可以在本机中执行脚本命令
+5、多线程关键类Semaphore的实现

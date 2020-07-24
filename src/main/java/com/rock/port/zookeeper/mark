@@ -1,0 +1,67 @@
+zookeeper:使用到的设计模式是观察者模式。
+需要实验的功能：
+【】配置管理：统一的配置管理，使用Zab这种一致性协议来提供一致性
+实现：
+    多个client服务器统一监控指定的zookeeper服务器指定路径的状态。
+    使用循环来监听zooKeeper.exists("/configuration/app",watcher);
+    并把结果通知给多个指定的观察者。当任意一个服务器修改监听路径下的值时，
+    其他观察者就会监听到修改状态，获取最新的值即可
+
+注意：zookeeper是小文件存储系统，某个节点下不可以存储超过1M大小的数据
+
+【】集群管理：
+    使用场景：分为zookeeper服务器和多个server服务器，
+    多个server服务器来监听指定zookeeper服务器下的指定节点的状态，
+    server与zookeeper建立长连接并心跳检测，并获取所有可用的server列表。
+    每个server对应zookeeper中的一个子节点
+
+【】分布式锁：
+    创建临时顺序节点，接着调用getChildren(rootPath);---获取所有的子节点，判断对应的序号是不是最小的，
+    如果最小的序号与自己创建的节点序号是相同的，则获取到锁。否则，还没有获取到锁，调用exist，同时对其进行监控，
+    当这个最小的节点删除之后，再次调用getChildren，判断当前最小的节点序号和自己的是否相同，直到相同及获得到锁
+名字服务：
+
+
+API的使用：
+【create】demo：zk.Create(Dir, severname.GetBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.Persistent);
+
+其中CreateMode分为4类Persistent、PersistentSequential、Ephemeral、EphemeralSequential
+
+
+【exists】查看节点是否存在 exists===只有当指定监控的几点进行创建或者删除这个节点，才会触发这个监控
+    其他的往这个节点改变数据，都不会触发这个节点。因为他监控的事件类型不同
+
+    其中，孩子节点的变化经测试也不能监控---坑死了
+    判断某个 path 是否存在，并设置是否监控这个目录节点
+    demo ： zk.Exists(Dir, new MyWatch2());//监控  ，为true就是之用刚开始连接的时候的监控者来监控
+    每次只是一次
+
+【】Zookeeper有两种watches，一种是data watches，另一种是child watches
+
+【】其他的get等操作，可以设置是否为true等来监控指定的事件类型
+
+
+//修改节点/root/childone下的数据，第二个为新数据 第三个参数为版本，如果是-1，那会无视被修改的数据版本，直接改掉
+//zk.SetData("/root/childone", "childonemodify".GetBytes(), -1);
+//删除/root/childone这个节点，第二个参数为版本，－1的话直接删除，无视版本
+//zk.Delete("/root/childone", -1);
+
+
+========================================
+/**
+ * 持久节点：节点创建后，会一直存在，不会因客户端会话失效而删除；
+*/
+PERSISTENT
+/**
+     * 持久顺序节点：基本特性与持久节点一致，创建节点的过程中，zookeeper会在其名字后自动追加一个单调增长的数字后缀，作为新的节点名；
+     */
+    PERSISTENT_SEQUENTIAL
+/**
+* 临时节点：客户端会话失效或连接关闭后，该节点会被自动删除，且不能再临时节点下面创建子节点，否则报如下错（org.apache.zookeeper.KeeperException$NoChildrenForEphemeralsException: KeeperErrorCode = NoChildrenForEphemerals for /node/child）；
+*/
+EPHEMERAL
+
+/**
+* 临时顺序节点：基本特性与临时节点一致，创建节点的过程中，zookeeper会在其名字后自动追加一个单调增长的数字后缀，作为新的节点名；
+*/
+EPHEMERAL_SEQUENTIAL
