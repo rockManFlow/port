@@ -3,7 +3,8 @@ package com.rock.port.controller;
 import com.rock.port.modle.Type;
 import com.rock.port.util.HostUtil;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ import java.util.Set;
  */
 @RestController
 public class ProxyController {
-    private static final Logger logger = Logger.getLogger(ProxyController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProxyController.class);
     private static final Map<String, Type> ipList = new HashMap<>();//白名单列表
     private static final Map<String, String> sysMapper = new HashMap<>();//系统映射
     @PostConstruct
@@ -33,11 +34,11 @@ public class ProxyController {
         ipList.put("192.168.0.31", Type.DEYN);
         ipList.put("0:0:0:0:0:0:0:1", Type.ALLOW);
         try {
-            Properties properties = null;
-            Set<String> keySet = properties.stringPropertyNames();
-            for(String key:keySet){
-                sysMapper.put(key,(String)properties.get(key));
-            }
+//            Properties properties = null;
+//            Set<String> keySet = properties.stringPropertyNames();
+//            for(String key:keySet){
+//                sysMapper.put(key,(String)properties.get(key));
+//            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -82,7 +83,7 @@ public class ProxyController {
         if (type == null || Type.DEYN == type) {
             return false;
         }
-        logger.info(type);
+        logger.info(type.getDesc());
         return true;
     }
 

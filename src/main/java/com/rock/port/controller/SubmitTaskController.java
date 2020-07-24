@@ -6,7 +6,8 @@ import com.rock.port.service.ThreadPoolService;
 import com.rock.port.util.JsonUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ import java.util.concurrent.Executor;
  */
 @RestController
 public class SubmitTaskController {
-    private static final Logger logger=Logger.getLogger(SubmitTaskController.class);
+    private static final Logger logger= LoggerFactory.getLogger(SubmitTaskController.class);
 
     @RequestMapping("submit/task.htm")
     public String work(HttpServletRequest request) throws IOException {

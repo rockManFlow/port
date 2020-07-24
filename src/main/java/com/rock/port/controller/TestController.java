@@ -1,6 +1,7 @@
 package com.rock.port.controller;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 //@RequestMapping("netty")
 public class TestController {
-    private static final Logger logger=Logger.getLogger(TestController.class);
+    private static final Logger logger= LoggerFactory.getLogger(TestController.class);
 
     @RequestMapping("/test.do")
     @ResponseBody

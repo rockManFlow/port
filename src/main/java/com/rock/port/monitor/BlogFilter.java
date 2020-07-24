@@ -1,6 +1,7 @@
 package com.rock.port.monitor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class BlogFilter implements HandlerInterceptor {
-    private static final Logger logger = Logger.getLogger(BlogFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(BlogFilter.class);
     private static final String verifyUrl="http://127.0.0.1:8081/verify/loginVerify.htm";
 
     @Override

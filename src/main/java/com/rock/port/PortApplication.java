@@ -1,7 +1,7 @@
 package com.rock.port;
 
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 //@EnableDiscoveryClient
 //会扫描根目录下的所有注解
-@SpringBootApplication
-@Log4j
+@SpringBootApplication(scanBasePackages = "com.rock")
+@Slf4j
 public class PortApplication {
     public static void main(String[] args) {
         SpringApplication.run(PortApplication.class,args);

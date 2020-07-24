@@ -1,6 +1,7 @@
 package com.rock.port.processor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,7 +13,7 @@ import java.lang.management.RuntimeMXBean;
  * Created by caoqingyuan on 2018/1/23.
  */
 public class RuntimeUtil {
-    private static final Logger logger= Logger.getLogger(RuntimeUtil.class);
+    private static final Logger logger= LoggerFactory.getLogger(RuntimeUtil.class);
     public static String processId;
     public static String exec(String command) {
         StringBuilder sb = new StringBuilder();

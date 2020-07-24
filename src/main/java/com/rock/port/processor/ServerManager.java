@@ -2,14 +2,15 @@ package com.rock.port.processor;
 
 import com.rock.port.util.OSType;
 import com.rock.port.util.OSUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 用于实现服务的重启
  * Created by caoqingyuan on 2018/1/23.
  */
 public class ServerManager {
-    private static final Logger logger= Logger.getLogger(ServerManager.class);
+    private static final Logger logger= LoggerFactory.getLogger(ServerManager.class);
     public void restart(){
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {

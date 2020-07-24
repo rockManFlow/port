@@ -1,6 +1,7 @@
 package com.rock.port.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by caoqingyuan on 2017/11/24.
  */
 public class HostUtil {
-    private static final Logger logger= Logger.getLogger(HostUtil.class);
+    private static final Logger logger= LoggerFactory.getLogger(HostUtil.class);
 
     public static void loadHostInfo(HttpServletRequest request){
         String ip=getIpAdress(request);

@@ -1,7 +1,8 @@
 package com.rock.port.zookeeper.clusterManage;
 
-import org.apache.log4j.Logger;
 import org.apache.zookeeper.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
  * Created by caoqingyuan on 2017/12/20.
  */
 public class Client implements Runnable {
-    private static final Logger logger = Logger.getLogger(Client.class);
+    private static final Logger logger = LoggerFactory.getLogger(Client.class);
     private String path = "/cluster";
     private ZooKeeper zooKeeper;
     private String nodeName;
